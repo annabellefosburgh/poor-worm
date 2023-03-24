@@ -1,0 +1,56 @@
+:root {
+    --sage: #CCD5AE;
+    --lightsage: #E9EDC9;
+    --beige: #FEFAE0;
+    --coffee: #AD8B73;
+}
+
+* {
+    font-family:'Times New Roman', Times, serif;
+}
+
+header {
+    background-color:var(--lightsage);
+    color: var(--sage);
+    font-size: 75px;
+    text-align: center;
+}
+
+body {
+    background-color: var(--beige);
+    color: var(--coffee); 
+}
+
+.game-container {
+    background-color: var(--lightsage);
+    color: var(--coffee);
+    font-size: 45px;
+    margin-left: 100px;
+    padding: 2px;
+    border: 3px solid var(--sage);
+    border-radius: 2%;
+    text-align: center;
+}
+
+.win-loss {
+    background-color: var(--lightsage);
+    color: var(--coffee);
+    font-size: 30px;
+    margin-right: 100px;
+    padding: 2px;
+    border: 3px solid var(--sage);
+    border-radius: 2%;
+    text-align: start;
+}
+
+.timer {
+    background-color: var(--sage);
+    color: var(--beige);
+    font-size: 15px;
+    text-align: center;
+    padding: 2px;
+    border: 3px solid var(--coffee);
+    border-radius: 2%;
+}
+
+
