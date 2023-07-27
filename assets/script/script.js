@@ -25,6 +25,13 @@ var scoreRecord = document.querySelector("#score-record");
 var scoreCheck = document.querySelector("#score-check");
 var finish = document.querySelector("#finish");
 
+//Assigning counter/countdown variables
+var timeLeft = document.getElementById("timer");
+var secondsLeft = 60;
+var questionNumber = 0;
+var totalScore = 0;
+var questionCount = 1;
+
 //Writing the questions and their proper answers as an object
 var questionObject = [
     {
@@ -54,4 +61,125 @@ var questionObject = [
     },
 ];
 
-//
+//Starting the countdown timer using the setInterval() function
+function countdown() { 
+    var timerInterval = setInterval(function () {
+      secondsLeft--;
+      timeLeft.textContent = "Time left: " + secondsLeft + " s";
+        if (secondsLeft <= 0){
+            clearInterval(timerInterval);
+            timeLeft.textContent = "Time is up!"; 
+            gameOver();
+        } else if (questionCount >= questionObject.length +1) {
+            clearInterval(timerInterval);
+            gameOver();
+            } 
+}, 1000);
+}
+
+//Start quiz function for eventlistener, hides the description and shows the questions, calls the countdown function to start the timer
+function startQuiz () {
+    intro.style.display = "none";
+    question.style.display = "block";
+    questionNumber = 0
+    countdown();
+    showQuestion(questionNumber);
+}
+
+//Function to show the question with their corresponding choices
+function showQuestion (n) {
+    askQuestion.textContent = questionObject[n].question;
+    answer1.textContent = questionObject[n].choices[0];
+    answer2.textContent = questionObject[n].choices[1];
+    answer3.textContent = questionObject[n].choices[2];
+    answer4.textContent = questionObject[n].choices[3];
+    questionNumber = n;
+}
+
+//Function to display "Right!" or "Wrong!" after answering a question. This function will then display the next question after an answer button has been pressed
+function checkAnswer(event) {
+    event.preventDefault();
+    checkLine.style.display = "block";
+    setTimeout(function () {
+        checkLine.style.display = 'none';
+    }, 1000);
+    if (questionObject[questionNumber].answer == event.target.value) {
+        checkLine.textContent = "Correct!"; 
+        totalScore = totalScore + 1;
+    } else {
+        secondsLeft = secondsLeft - 10;
+        checkLine.textContent = "Wrong!";
+    }
+    if (questionNumber < questionSource.length -1 ) {
+        showQuestion(questionNumber +1);
+    } else {
+    endGame();
+}
+questionCount++;
+}
+
+//A function to hide the questions, show the scores, and stop the countdown
+function endGame() {
+    question.style.display = "none";
+    scoreBoard.style.display = "block";
+    finalScore.textContent = "Your final score is: " + totalScore ;
+    timeLeft.style.display = "none"; 
+};
+
+//A function to return the saved scores from local storage
+function getScore () {
+    var currentList =localStorage.getItem("ScoreList");
+    if (currentList !== null ){
+        newList = JSON.parse(currentList);
+        return newList;
+    } else {
+        newList = [];
+    }
+    return newList;
+};
+
+//A function to display the scores to the scoreboard
+function renderScore () {
+    scoreRecord.innerHTML = "";
+    scoreRecord.style.display ="block";
+    var highScores = sort();   
+    var topFive = highScores.slice(0,5);
+    for (var i = 0; i < topFive.length; i++) {
+        var item = topFive[i];
+    var li = document.createElement("li");
+    li.textContent = item.user + " - " + item.score;
+    li.setAttribute("data-index", i);
+    scoreRecord.appendChild(li);
+    }
+};
+
+//A function to sort the scores
+function sort () {
+    var unsortedList = getScore();
+    if (getScore == null ){
+        return;
+    } else{
+    unsortedList.sort(function(a,b){
+        return b.score - a.score;
+    })
+    return unsortedList;
+}};
+
+//Adds score and initial to localstorage
+function addScore (n) {
+    var addedList = getScore();
+    addedList.push(n);
+    localStorage.setItem("ScoreList", JSON.stringify(addedList));
+};
+
+function saveScore () {
+    var scoreItem ={
+        user: userInitial.value,
+        score: totalScore
+    }
+    addScore(scoreItem);
+    renderScore();
+}
+
+
+
