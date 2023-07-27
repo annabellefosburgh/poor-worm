@@ -1,13 +1,19 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Code Quiz</title>
-    <meta charset="UTF-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" href="./assets/css/style.css" />
-  </head>
 
-  <body>
+<head>
+    <title>Code Quiz</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/picnic">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300&family=VT323&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="./assets/css/style.css" />
+</head>
+
+<body>
     <header>
         <div class="header">
             <div>
@@ -21,14 +27,15 @@
 
     <main>
         <div>
-            
+
             <section class="intro" id="intro">
                 <div id="introduction">
                     <h1>
                         Welcome to Coding Quiz Challenge
                     </h1>
                     <p>
-                    Do your best to answer all these questions in one minute. Any wrong answers will be met with a penalty of 10 seconds deducted from your time!
+                        Do your best to answer all these questions in one minute. Any wrong answers will be met with a
+                        penalty of 10 seconds deducted from your time!
                     </p>
                     <button class="button" id="start-btn">Start Quiz</button>
                 </div>
@@ -39,16 +46,16 @@
                     <div>
                         <h2 id="ask-question">Ask the question</h2>
                         <ul>
-                            <li><button class ="choices button" id="answerA" value="a">Answer1</button></li>
-                            <li><button class ="choices button" id="answerB" value="b">Answer2</button></li>
-                            <li><button class ="choices button" id="answerC" value="c">Answer3</button></li>
-                            <li><button class ="choices button" id="answerD" value="d">Answer4</button></li>
+                            <li><button class="choices button" id="answerA" value="a">Answer1</button></li>
+                            <li><button class="choices button" id="answerB" value="b">Answer2</button></li>
+                            <li><button class="choices button" id="answerC" value="c">Answer3</button></li>
+                            <li><button class="choices button" id="answerD" value="d">Answer4</button></li>
                         </ul>
-                    <div>
+                        <div>
 
-                    <div id="check-line">
-                        <p>Right or Wrong</p>
-                    </div>
+                            <div id="check-line">
+                                <p>Right or Wrong</p>
+                            </div>
             </section>
 
             <section class="submit" id="submit">
@@ -62,10 +69,12 @@
                 </div>
             </section>
 
-            <section class="highscore" id ="highscore">
+            <section class="highscore" id="highscore">
                 <div>
                     <h2>High Scores</h2>
-                    <div id="score-record"><p>Your record</p></div><br><br>
+                    <div id="score-record">
+                        <p>Your record</p>
+                    </div><br><br>
                     <div>
                         <button class="button" id="back-btn">Go back</button>
                         <button class="button" id="clear-btn">Clear Highscores</button>
@@ -80,7 +89,8 @@
     <footer>
         Thanks for playing!
     </footer>
-    
+
     <script src="assets/script/script.js"></script>
-  </body>
+</body>
+
 </html>
