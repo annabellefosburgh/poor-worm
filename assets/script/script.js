@@ -7,7 +7,7 @@ var askQuestion = document.querySelector("#ask-question");
 var scoreBoard = document.querySelector("#submit");
 
 //Assigning variables for all buttons
-var startBtn = document.querySelector("#start-button");
+var startButton = document.querySelector("#start-btn");
 var allButtons = document.querySelectorAll(".choices");
 var answer1 = document.querySelector("#answer1");
 var answer2 = document.querySelector("#answer2");
@@ -22,7 +22,6 @@ var checkLine = document.querySelector("#check-line");
 var finalScore = document.querySelector("#final-score");
 var userInitial = document.querySelector("#initial");
 var scoreRecord = document.querySelector("#score-record");
-var scoreCheck = document.querySelector("#score-check");
 var finish = document.querySelector("#finish");
 
 //Assigning counter/countdown variables
@@ -69,10 +68,10 @@ function countdown() {
         if (secondsLeft <= 0){
             clearInterval(timerInterval);
             timeLeft.textContent = "Time is up!"; 
-            gameOver();
+            endGame();
         } else if (questionCount >= questionObject.length +1) {
             clearInterval(timerInterval);
-            gameOver();
+            endGame();
             } 
 }, 1000);
 }
@@ -88,11 +87,21 @@ function startQuiz () {
 
 //Function to show the question with their corresponding choices
 function showQuestion (n) {
+    if (askQuestion) {
     askQuestion.textContent = questionObject[n].question;
-    answer1.textContent = questionObject[n].choices[0];
-    answer2.textContent = questionObject[n].choices[1];
-    answer3.textContent = questionObject[n].choices[2];
-    answer4.textContent = questionObject[n].choices[3];
+    }
+    if (answerA) {
+    answerA.textContent = questionObject[n].choices[0];
+    }
+    if (answerB) {
+    answerB.textContent = questionObject[n].choices[1];
+    }
+    if (answerC) {
+    answerC.textContent = questionObject[n].choices[2];
+    }
+    if (answerD) {
+    answerD.textContent = questionObject[n].choices[3];
+    }
     questionNumber = n;
 }
 
@@ -110,7 +119,7 @@ function checkAnswer(event) {
         secondsLeft = secondsLeft - 10;
         checkLine.textContent = "Wrong!";
     }
-    if (questionNumber < questionSource.length -1 ) {
+    if (questionNumber < questionObject.length -1 ) {
         showQuestion(questionNumber +1);
     } else {
     endGame();
@@ -180,6 +189,51 @@ function saveScore () {
     addScore(scoreItem);
     renderScore();
 }
+
+//Event listeners for all buttons
+startButton.addEventListener("click", startQuiz);
+
+//click any choices button, go to the next question
+allButtons.forEach(function(click){
+    click.addEventListener("click", checkAnswer);
+});
+
+//save information and go to next page
+submitButton.addEventListener("click", function(event) {
+    event.preventDefault();
+    scoreBoard.style.display = "none";
+    intro.style.display = "none";
+    highScore.style.display = "block";
+    question.style.display ="none";
+    saveScore();
+});
+
+// check highscore ranking list
+highScore.addEventListener("click", function(event) {
+    event.preventDefault();
+    scoreBoard.style.display = "none";
+    intro.style.display = "none";
+    highScore.style.display = "block";
+    question.style.display ="none";
+    renderScore();
+});
+
+//go back to main page
+backButton.addEventListener("click",function(event){
+        event.preventDefault();
+        scoreBoard.style.display = "none";
+        intro.style.display = "block";
+        highScore.style.display = "none";
+        question.style.display ="none";
+        location.reload();
+});
+
+//clear local storage and clear page shows
+clearButton.addEventListener("click",function(event) {
+    event.preventDefault();
+    localStorage.clear();
+    renderScore();
+});
 
 
 
